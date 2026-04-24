@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FreshCart — Dashboard</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1 class="logo">🛒 FreshCart</h1>
+      <nav>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="products.html">Products</a>
+        <a href="index.html">Logout</a>
+      </nav>
+    </header>
+
+    <main>
+      <h2 id="welcome">Welcome back, Deepak 👋</h2>
+      <p id="liveTimestamp" class="timestamp">Last login: Loading...</p>
+
+      <div class="card-grid">
+        <div class="card">
+          <h3>Orders</h3>
+          <p class="card-number">24</p>
+          <p>Total orders this month</p>
+        </div>
+        <div class="card">
+          <h3>Saved</h3>
+          <p class="card-number">$142</p>
+          <p>Savings from deals</p>
+        </div>
+        <div class="card">
+          <h3>Points</h3>
+          <p class="card-number">3,450</p>
+          <p>Reward points balance</p>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <p>&copy; 2026 FreshCart Inc. · Toronto, ON</p>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById('liveTimestamp').textContent =
+      'Last login: ' + new Date().toLocaleString();
+  </script>
+</body>
+</html>
