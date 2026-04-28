@@ -20,7 +20,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.AfterClass;
 
 public class LoginPageTest {
-
     private WebDriver driver;
     private Eyes eyes;
     private VisualGridRunner runner;
@@ -38,6 +37,8 @@ public class LoginPageTest {
         Configuration config = eyes.getConfiguration();
         config.setApiKey(System.getenv("APPLITOOLS_API_KEY"));
         config.setBatch(BATCH);
+        config.setBranchName(System.getenv("APPLITOOLS_BRANCH"));
+        config.setParentBranchName("main");
         config.addBrowser(1200, 800, BrowserType.CHROME);
         config.addBrowser(1200, 800, BrowserType.FIREFOX);
         config.addBrowser(1200, 800, BrowserType.SAFARI);
@@ -50,34 +51,17 @@ public class LoginPageTest {
     public void testLoginPageVisual() {
         eyes.open(driver, "FreshCart", "Login Page Visual Test", new RectangleSize(1200, 800));
         driver.get("https://deepak-gurejani.github.io/Eyes-testng-lab/");
-
-        // Checkpoint 1: STRICT (default) — catches everything
-        eyes.check("Login Page - Strict",
-                Target.window().fully().matchLevel(MatchLevel.STRICT));
-
-        // Checkpoint 2: LAYOUT — ignores text/colors, catches layout shifts
-        eyes.check("Login Page - Layout",
-                Target.window().fully().matchLevel(MatchLevel.LAYOUT));
-
-        // Checkpoint 3: CONTENT — ignores font/styling, catches different text
-        eyes.check("Login Page - Content",
-                Target.window().fully().matchLevel(MatchLevel.CONTENT));
-
-        // Checkpoint 4: EXACT — pixel-perfect, no tolerance (rarely used)
-        eyes.check("Login Page - Exact",
-                Target.window().fully().matchLevel(MatchLevel.EXACT));
-
+        eyes.check("Login Page - Strict", Target.window().fully().matchLevel(MatchLevel.STRICT));
+        eyes.check("Login Page - Layout", Target.window().fully().matchLevel(MatchLevel.LAYOUT));
+        eyes.check("Login Page - Content", Target.window().fully().matchLevel(MatchLevel.CONTENT));
+        eyes.check("Login Page - Exact", Target.window().fully().matchLevel(MatchLevel.EXACT));
         eyes.closeAsync();
     }
 
     @AfterClass
     public void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
-        if (eyes != null) {
-            eyes.abortIfNotClosed();
-        }
+        if (driver != null) driver.quit();
+        if (eyes != null) eyes.abortIfNotClosed();
         if (runner != null) {
             TestResultsSummary allTestResults = runner.getAllTestResults(false);
             System.out.println("UFG Results: " + allTestResults);
